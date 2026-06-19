@@ -3,6 +3,7 @@ import statistics
 import ifcopenshell
 import ifcopenshell.geom
 import matplotlib.pyplot as plt
+from typing import Any, List, Tuple, Dict, Optional 
 
 
 def clip_triangle_with_plane(p0, p1, p2, y_plane, epsilon=1e-4):
