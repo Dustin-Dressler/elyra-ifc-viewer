@@ -13,7 +13,7 @@ Voraussetzung: Python 3.8+ installiert.
 1. Repository klonen:
 ```bash
    git clone https://github.com/Dustin-Dressler/elyra-ifc-viewer.git
-   cd elyra-ifc-project
+   cd elyra-ifc-viewer
 ```
 
 2. Abhängigkeiten installieren:
