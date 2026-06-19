@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtuelle Umgebung
+venv/
+.venv/
+env/
+
+# Generierte Output-Dateien (SVG-Exporte aus Testläufen)
+output/*
+!output/.gitkeep
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# OS-spezifische Dateien
+.DS_Store
+Thumbs.db
