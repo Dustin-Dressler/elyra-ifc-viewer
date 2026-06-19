@@ -44,7 +44,7 @@ def clip_triangle_with_plane(p0, p1, p2, y_plane, epsilon=1e-4):
     return []
 
 def is_external_wall(wall):
-    """Prüft über IFC-Metadaten, ob eine Wand eine Außenwand ist (Fix B)."""
+    """Prüft über IFC-Metadaten, ob eine Wand eine Außenwand ist."""
     for rel in getattr(wall, "IsDefinedBy", []):
         prop_set = getattr(rel, "RelatingPropertyDefinition", None)
         if prop_set and prop_set.is_a("IfcPropertySet") and getattr(prop_set, "Name", "") == "Pset_WallCommon":
@@ -215,12 +215,12 @@ class IfcProcessor:
         settings = ifcopenshell.geom.settings()
         settings.set(settings.USE_WORLD_COORDS, True)
 
-        # 1. Hier werden Elemente (Türen, Fenster, Wände) gesammelt, die eventl. zur Fassade gehören könnten
+        # Hier werden Elemente (Türen, Fenster, Wände) gesammelt, die eventl. zur Fassade gehören könnten
         all_walls = self.ifc_file.by_type("IfcWall") + self.ifc_file.by_type("IfcWallStandardCase")
         exterior_walls = [w for w in all_walls if is_external_wall(w) is not False]
         front_elements = exterior_walls + self.ifc_file.by_type("IfcWindow") + self.ifc_file.by_type("IfcDoor")
 
-        # 2. Hier werden Dächer gesammelt, damit sie später immer mitgezeichnet werden (auch wenn sie vielleicht nicht als "Roof" klassifiziert sind)
+        # Hier werden Dächer gesammelt, damit sie später immer mitgezeichnet werden (auch wenn sie vielleicht nicht als "Roof" klassifiziert sind)
         roof_shapes = []
         for elem in self.ifc_file.by_type("IfcRoof"):
             try:
@@ -245,7 +245,7 @@ class IfcProcessor:
                     roof_shapes.append((slab, ifcopenshell.geom.create_shape(settings, slab)))
                 except Exception: pass
 
-        # 3. Y-Mittelpunkte werden hier für das culling gesammelt
+        # Y-Mittelpunkte werden hier für das culling gesammelt
         shapes_with_y = []
         for elem in front_elements:
             try:
@@ -257,7 +257,7 @@ class IfcProcessor:
                     shapes_with_y.append((elem, shape, y_center))
             except Exception: pass
 
-        # 4. Median-Filter für das Abschneiden von Elementen, die zu weit hinten liegen
+        # Median-Filter für das Abschneiden von Elementen, die zu weit hinten liegen
         front_shapes = []
         if shapes_with_y:
             y_centers = [y for (_, _, y) in shapes_with_y]
@@ -314,7 +314,7 @@ class IfcProcessor:
 
         renderables.sort(key=lambda item: item['y'], reverse=True)
 
-        # 6. Canvas wird gerendert
+        # Canvas wird gerendert
         fig, ax = plt.subplots(figsize=(12, 8))
         ax.set_aspect('equal')
         ax.set_title(f"Außenansicht (Front) - {base_name}", fontsize=14, fontfamily='sans-serif')
@@ -328,7 +328,7 @@ class IfcProcessor:
 
                 ax.fill(r['xc'], r['zc'], color='white', edgecolor='none', zorder=current_zorder)
             else:
-                # NEU: zorder zwingt matplotlib, die Linie genau hier hinzulegen!
+                
                 ax.plot(r['xc'], r['zc'], color='#2c3e50', linewidth=r['lw'], zorder=current_zorder)
             
             current_zorder += 1
