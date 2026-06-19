@@ -28,3 +28,5 @@ python main.py
 ```
 
 Die generierte .svg Dateien landen dann im `/output` Ordner.
+
+Info: Die Testdatei schependomlaan.ifc ist größer als 50MB und kann daher länger zum Laden brauchen.
