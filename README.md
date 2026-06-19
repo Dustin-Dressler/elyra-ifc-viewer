@@ -13,7 +13,7 @@ Voraussetzung: Python 3.8+ installiert.
 1. Repository klonen:
 ```bash
    git clone https://github.com/Dustin-Dressler/elyra-ifc-viewer.git
-   cd elyra-ifc-project
+   cd elyra-ifc-viewer
 ```
 
 2. Abhängigkeiten installieren:
@@ -28,3 +28,5 @@ python main.py
 ```
 
 Die generierte .svg Dateien landen dann im `/output` Ordner.
+
+Info: Die Testdatei schependomlaan.ifc ist größer als 50MB und kann daher länger zum Laden brauchen.
